@@ -15,6 +15,8 @@ public class Player {
         this.firstName = firstName;
         this.email = email;
         this.uniqId = uniqId;
+
+        this.score = 0;
     }
     public void incrScore(){
         this.score++;
@@ -39,6 +41,6 @@ public class Player {
     }
     @Override
     public String toString() {
-        return this.uniqId + this.currentCase + this.score;
+        return this.uniqId + " / case : " + this.currentCase +  " / score : " + this.score;
     }
 }

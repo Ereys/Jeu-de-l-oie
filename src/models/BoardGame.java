@@ -4,13 +4,12 @@ import java.util.ArrayList;
 
 public class BoardGame {
 
-    private Case firstCase;
     private int size;
+    private ArrayList<Case> listCase;
     public BoardGame(int size){
         this.size = size;
-        this.firstCase = new Case(1);
-        for(int i = 1; i <= size; i++){
-        }
+        this.listCase = new ArrayList<Case>();
+        this.boardConstruction(size);
     }
 
     public int getSize(){
@@ -18,10 +17,8 @@ public class BoardGame {
     }
 
     public void boardConstruction(int size){
-        Case current = firstCase;
         for(int i = 1; i <= size; i++){
-            current.setNextCase(new Case(i));
-            current = current.getNextCase();
+            this.listCase.add(new Case(i));
         }
     }
 
@@ -30,7 +27,7 @@ public class BoardGame {
      * @return the first case of the board
      */
     public Case getFirstCase(){
-        return this.firstCase;
+        return this.listCase.get(0);
     }
 
     /**
@@ -39,11 +36,10 @@ public class BoardGame {
      * @return the case with the target id
      */
     public Case getCaseById(int id) {
-        Case target = firstCase;
-        while (target.getIdCase() != id && target.hasNext()) {
-            target = target.getNextCase();
+        for(Case c : this.listCase){
+            if(c.getIdCase() == id) return c;
         }
-        return target;
+        return null;
     }
 }
 

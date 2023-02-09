@@ -15,7 +15,6 @@ public class GameController implements GameControllerInterface {
 
         do{
             update();
-            render();
         }while(this.game.gameInProgress());
 
     }
@@ -28,9 +27,11 @@ public class GameController implements GameControllerInterface {
 
     @Override
     public void render() {
+        System.out.println("******************************************");
         for(Player p: this.game.getPlayers()){
             System.out.println(p.toString());
         }
+        System.out.println("******************************************");
     }
 
     @Override
