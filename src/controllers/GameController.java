@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.jdi.ClassNotLoadedException;
 import models.Game;
 import models.Player;
 
@@ -8,20 +9,42 @@ public class GameController implements GameControllerInterface {
     private Game game;
 
     /**
-     * Method to create an instance of a game
-     * @param size int size of the board
+     *
+     * @param p
      */
-    public void createGame(int size){
+    public void addPlayerToGame(Player p) throws ClassNotLoadedException{
+        if(this.game != null) this.game.addPlayerToGame(p);
+        else throw new ClassNotLoadedException("Create a game instance");
+    }
+
+    @Override
+    public void create() {
+        int size=0;
+        //On demande la taille du plateau de jeu
         this.game = new Game(size);
     }
+
 
     @Override
     public void run() {
         do{
+            for(Player player : game.getPlayers()){ // Chacun son tour
+
+                // on demande :
+                //  1. Lancé le dé ( utiliser la méthode static throwDice(), et utiliser la classe Game pour déplacer  ),
+                //  2. Afficher son score( utiliser la méthode render() ) , Q
+                //  3. Quitter le jeu (break);
+
+
+            }
             update();
         }while(this.game.gameInProgress());
     }
 
+
+    /**
+     * Update data for the game
+     */
     @Override
     public void update() {
         for(Player p: this.game.getPlayers()){
@@ -55,4 +78,5 @@ public class GameController implements GameControllerInterface {
     public Game getGame(){
         return this.game;
     }
+
 }

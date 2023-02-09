@@ -4,6 +4,11 @@ public interface GameControllerInterface {
 
 
     /**
+     * Method to create initialize value
+     */
+    public void create();
+
+    /**
      * Method to run a game
      */
     public void run();
@@ -24,7 +29,7 @@ public interface GameControllerInterface {
     public void pause ();
 
     /**
-     * Method to resum a game
+     * Method to resume a game
      */
     public void resume ();
 }
