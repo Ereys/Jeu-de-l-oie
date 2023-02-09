@@ -23,7 +23,7 @@ public class Case {
      * Remove a player from a case
      * @param p Player
      */
-    public void removePlayerInCase(Player p){
+    public void removePlayerFromCase(Player p){
         this.playerInCase.remove(p);
     }
 
