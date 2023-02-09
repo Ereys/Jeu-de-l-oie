@@ -1,10 +1,11 @@
 package controllers;
 
 import models.Game;
+import models.Player;
 
 public class GameController implements GameControllerInterface {
 
-    Game game;
+    private Game game;
 
     public void createGame(int size){
         this.game = new Game(size);
@@ -16,10 +17,8 @@ public class GameController implements GameControllerInterface {
 
     @Override
     public void render() {
-        public void displayAllPlayer(){
-            for(Player p: this.game.getPlayers()){
-                System.out.println();
-            }
+        for(Player p: this.game.getPlayers()){
+            System.out.println(p.toString());
         }
     }
 
