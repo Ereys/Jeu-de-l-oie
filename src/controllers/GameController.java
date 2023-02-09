@@ -7,17 +7,21 @@ public class GameController implements GameControllerInterface {
 
     private Game game;
 
+    /**
+     * Method to create an instance of a game
+     * @param size int size of the board
+     */
     public void createGame(int size){
         this.game = new Game(size);
     }
 
-    public void run(){
-
+    @Override
+    public void run() {
         do{
             update();
         }while(this.game.gameInProgress());
-
     }
+
     @Override
     public void update() {
         for(Player p: this.game.getPlayers()){
@@ -44,6 +48,10 @@ public class GameController implements GameControllerInterface {
 
     }
 
+    /**
+     * Only for test
+     * @return
+     */
     public Game getGame(){
         return this.game;
     }

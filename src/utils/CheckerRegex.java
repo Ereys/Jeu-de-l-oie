@@ -6,5 +6,5 @@ public class CheckerRegex {
         if(email.matches(regex)) return true;
         throw new IllegalArgumentException("Must be an email");
     }
-    
+
 }

@@ -10,12 +10,27 @@ public class Case {
         this.idCase = idCase;
         this.playerInCase = new ArrayList<Player>();
     }
+
+    /**
+     * Add a player in the case
+     * @param p Player
+     */
     public void addPlayerInCase(Player p){
         this.playerInCase.add(p);
     }
+
+    /**
+     * Remove a player from a case
+     * @param p Player
+     */
     public void removePlayerInCase(Player p){
         this.playerInCase.remove(p);
     }
+
+    /**
+     * Get the id of the case
+     * @return the id of the case
+     */
     public int getIdCase() {
         return idCase;
     }
