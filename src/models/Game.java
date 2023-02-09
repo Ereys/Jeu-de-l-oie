@@ -22,9 +22,8 @@ public class Game {
     public boolean gameInProgress(){
         return this.inProgress;
     }
-    public void displayAllPlayer(){
-        for(Player p: this.listPlayer){
-            System.out.println();
-        }
+
+    public ArrayList<Player> getPlayers(){
+        return this.listPlayer;
     }
 }
