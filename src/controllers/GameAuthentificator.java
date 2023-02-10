@@ -1,5 +1,7 @@
 package controllers;
 
+import exceptions.LoginFailedException;
+import exceptions.RegisterFailedException;
 import models.Player;
 import models.User;
 import models.UserList;
@@ -19,7 +21,7 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
     }
 
     @Override
-    public User register() {
+    public User register() throws RegisterFailedException {
         String lastName;
         String firstName;
         String uniqId;
@@ -52,14 +54,12 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
             user.login();
             return user;
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Une erreur est survenue lors de l'enregistrement, veuillez  ressayer !");
-            return null;
+            throw new RegisterFailedException(e + " : Une erreur est survenue lors de l'enregistrement, veuillez  ressayer !");
         }
     }
 
     @Override
-    public User login() {
+    public User login() throws LoginFailedException{
 
         String id;
         String pwd;
@@ -71,9 +71,7 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
             pwd = br.readLine();
             return this.listUser.checkIfUserExist(pwd, id);
         } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Une erreur est survenue lors de la connexion, veuillez ressayer");
-            return null;
+            throw new LoginFailedException(e + " : Une erreur est survenue lors de la connexion, veuillez  ressayer !");
         }
     }
     @Override

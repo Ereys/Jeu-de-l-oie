@@ -27,21 +27,23 @@ public class GameController implements GameControllerInterface {
 
     @Override
     public void run() {
-        do{
+        while(this.game.gameInProgress()){
             for(Player player : game.getPlayers()){ // Chacun son tour
                 if(player.hasFinished()){
                     continue;
                 }
+                // Bufferedreader : 1 2 3
 
-                // on demande :
+                // Tu teste si c'est 1 2 ou 3
+                //
+
+                // on demande : switch ou if
                 //  1. Lancé le dé ( utiliser la méthode static throwDice(), et utiliser la classe Game pour déplacer  ),
                 //  2. Afficher son score( utiliser la méthode render() ) , Q
                 //  3. Quitter le jeu (break);
-
-
             }
             update();
-        }while(this.game.gameInProgress());
+        }
     }
 
 
