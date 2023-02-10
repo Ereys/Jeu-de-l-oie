@@ -11,9 +11,15 @@ public interface GameControllerInterface {
     public void create(int size);
 
     /**
+     * Method to destroy a game
+     * @throws GameNotFoundException
+     */
+    public void destroy() throws GameNotFoundException;
+
+    /**
      * Method to run a game
      */
-    public void run();
+    public void run() throws Exception;
 
     /**
      * Method to update game data

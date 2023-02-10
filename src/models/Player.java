@@ -10,8 +10,8 @@ public class Player {
         this.uniqId = uniqId;
         this.score = 0;
     }
-    public void incrScore(){
-        this.score++;
+    public void setScore(int score){
+        this.score = score;
     }
 
     public String getUniqId(){
@@ -26,13 +26,14 @@ public class Player {
         return this.finished;
     }
     public void setCurrentCase(int currentCase){
-        this.currentCase = currentCase;
+        if(currentCase <= 0) this.currentCase = 1;
+        else this.currentCase = currentCase;
     }
     public int getCurrentCase(){
         return this.currentCase;
     }
     @Override
     public String toString() {
-        return this.uniqId  +  " / score : " + this.score + " / case : " + this.currentCase;
+        return this.uniqId  +  " / score : " + this.score + " / a gagné : " + this.finished +  " / case : " + this.currentCase;
     }
 }

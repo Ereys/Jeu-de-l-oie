@@ -4,18 +4,23 @@ import com.sun.jdi.ClassNotLoadedException;
 import exceptions.GameNotFoundException;
 import models.Game;
 import models.Player;
+import utils.CheckerRegex;
+import utils.Dice;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class GameController implements GameControllerInterface {
 
-    private Game game;
+    private Game game = null;
 
     /**
      *
      * @param p
      */
-    public void addPlayerToGame(Player p) throws ClassNotLoadedException{
-        if(this.game != null) this.game.addPlayerToGame(p);
-        else throw new ClassNotLoadedException("Create a game instance");
+    public void addPlayerToGame(Player p) throws GameNotFoundException{
+        if(this.game == null) throw new GameNotFoundException("Veuillez creer une partie");
+        this.game.addPlayerToGame(p);
     }
 
     @Override
@@ -24,25 +29,55 @@ public class GameController implements GameControllerInterface {
         this.game = new Game(size);
     }
 
+    @Override
+    public void destroy() throws GameNotFoundException {
+        if(this.game == null) throw new GameNotFoundException("Vous ne pouvez pas détruire une partie qui n'existe pas");
+        this.game = null;
+    }
 
     @Override
-    public void run() {
+    public void run() throws Exception{
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+        String choice = "";
+
         while(this.game.gameInProgress()){
-            for(Player player : game.getPlayers()){ // Chacun son tour
-                if(player.hasFinished()){
-                    continue;
+
+            for(Player player : game.getPlayers()) { // Chacun son tour
+                if (player.hasFinished()) {
+                    System.out.println("1. Continuer a regarder");
+                    System.out.println("2. Quitter la partie");
+                    System.out.print("Votre choix : ");
+
+                    choice = buffer.readLine();
+                    CheckerRegex.choiceNumber(choice);
+                    if(choice.equals(1))continue;
+                    if(choice.equals(2)){
+                        this.game.switchGameStatus(false);
+                        break;
+                    }
                 }
+                try {
+                    System.out.println("1. Jette le dé");
+                    System.out.println("2. Montrer le score");
+                    System.out.println("3. Quitter la partie (pause)");
 
-                System.out.println("Je suis ici !");
-                // Bufferedreader : 1 2 3
+                    System.out.print("Votre choix : ");
+                    choice = buffer.readLine();
+                    CheckerRegex.choiceNumber(choice);
 
-                // Tu teste si c'est 1 2 ou 3
-                //
-
-                // on demande : switch ou if
-                //  1. Lancé le dé ( utiliser la méthode static throwDice(), et utiliser la classe Game pour déplacer  ),
-                //  2. Afficher son score( utiliser la méthode render() ) , Q
-                //  3. Quitter le jeu (break);
+                    if (choice.equals("1")) {
+                        this.game.movePlayer(player, Dice.rollDice());
+                    }
+                    if (choice.equals("2")) {
+                        render();
+                    }
+                    if (choice.equals("3")) {
+                        this.pause();
+                        break;
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             }
             update();
         }
@@ -77,7 +112,6 @@ public class GameController implements GameControllerInterface {
         if(this.game == null) throw new GameNotFoundException("Veuillez creer une partie");
         System.out.println("Votre partie va reprendre !");
         this.game.switchGameStatus(true);
-        this.run();
     }
 
     /**

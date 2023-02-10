@@ -42,7 +42,7 @@ public class Game {
      * @param diceNumber a number between [1-6]
      */
     public void movePlayer(Player p, int diceNumber){
-        p.incrScore();
+        p.setScore(diceNumber);
         boolean outOfBound = false;
         int comptToDecrease = 0;
         board.getCaseById(p.getCurrentCase()).removePlayerFromCase(p);

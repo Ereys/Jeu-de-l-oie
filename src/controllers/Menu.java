@@ -2,6 +2,7 @@ package controllers;
 
 import models.Player;
 import models.User;
+import utils.CheckerRegex;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,7 +16,7 @@ public class Menu {
         this.gameAuth = new GameAuthentificator();
     }
 
-    public User authentificationMenu(){
+    public void authentificationMenu(){
 
         User newUser = null;
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
@@ -23,27 +24,33 @@ public class Menu {
 
         do{
             try {
+                System.out.flush();
+                System.out.println("-------------------------------------------------------------");
+                System.out.println("------------------ Authentification -------------------------");
+                System.out.println("-------------------------------------------------------------");
                 System.out.println("1. Se connecter");
                 System.out.println("2. S'enregistrer");
                 System.out.println("3. Quitter");
-
+                System.out.println();
                 System.out.print("Votre choix : ");
                 choice = buffer.readLine();
+                CheckerRegex.choiceNumber(choice);
 
                 if(choice.equals("1")){
                     newUser = gameAuth.login();
-                    return newUser;
+                    if(newUser != null) gameSelectionMenu(newUser);
                 }
                 if(choice.equals("2")) {
                     newUser = gameAuth.register();
-                    return newUser;
+                    gameSelectionMenu(newUser);
                 }
                 if(choice.equals("3")) break;
             }catch (Exception exception){
-                System.err.println(exception);
+                System.out.println("*************************************");
+                System.out.println(exception.getMessage());
+                System.out.println("*************************************");
             }
         }while(newUser == null);
-        return null;
     }
 
     public void gameSelectionMenu(User user){
@@ -54,11 +61,18 @@ public class Menu {
 
         do {
             try {
+                System.out.flush();
+                System.out.println("---------------------------------------------------------");
+                System.out.println("------------------ Jeu de l'oie -------------------------");
+                System.out.println("---------------------------------------------------------");
                 System.out.println("1. Créer une partie");
                 System.out.println("2. Rejoindre une partie");
                 System.out.println("3. Se déconnecter");
+                System.out.println();
                 System.out.print("Votre choix : ");
+
                 choice = buffer.readLine();
+                CheckerRegex.choiceNumber(choice);
 
                 if (choice.equals("1")) {
                     this.game = new GameController();
@@ -70,14 +84,18 @@ public class Menu {
                 }
                 if (choice.equals("2")){
                     this.game.resume();
+                    this.game.run();
                 }
                 if (choice.equals("3")){
                     quit = true;
                 }
             } catch (Exception e) {
-                System.err.println(e);
+                System.out.println("-------------------------------------------");
+                System.out.println(e.getMessage());
+                System.out.println("-------------------------------------------");
             }
         }while(!quit);
         user.logout();
+        this.authentificationMenu();
     }
 }
