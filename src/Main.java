@@ -17,7 +17,7 @@ public class Main {
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
         do{
-            
+
 
 
         }while(newUser == null);
