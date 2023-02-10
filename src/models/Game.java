@@ -38,7 +38,7 @@ public class Game {
         p.incrScore();
         boolean outOfBound = false;
         int comptToDecrease = 0;
-
+        board.getCaseById(p.getCurrentCase()).removePlayerFromCase(p);
         if(p.getCurrentCase() + diceNumber <= board.getSize()){
             p.setCurrentCase(p.getCurrentCase() + diceNumber);
         }else{
