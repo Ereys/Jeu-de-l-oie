@@ -30,7 +30,9 @@ public class UserList {
                 return user;
             }
         }
+        System.out.println();
         System.out.println("Votre compte n'existe pas, veuillez vous enregistrer !");
+        System.out.println();
         return null;
     }
 }

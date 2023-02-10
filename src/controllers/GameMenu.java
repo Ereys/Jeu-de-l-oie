@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 public class GameMenu {
 
     public String hasFinishedMenu() throws IOException {
+
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
         System.out.println("-------------------------------------------------------------");
@@ -24,10 +25,11 @@ public class GameMenu {
     }
 
     public String inGameMenu() throws IOException{
+
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
         System.out.println("-------------------------------------------------------------");
-        System.out.println("1. Jette le dé");
+        System.out.println("1. Jetter le dé");
         System.out.println("2. Montrer le score");
         System.out.println("3. Quitter la partie (pause)");
         System.out.println();
@@ -37,9 +39,5 @@ public class GameMenu {
         CheckerRegex.choiceNumber(choice);
 
         return choice;
-
     }
-
-
-
 }

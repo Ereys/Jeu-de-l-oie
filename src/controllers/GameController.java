@@ -1,10 +1,8 @@
 package controllers;
 
-import com.sun.jdi.ClassNotLoadedException;
 import exceptions.GameNotFoundException;
 import models.Game;
 import models.Player;
-import utils.CheckerRegex;
 import utils.Dice;
 
 import java.io.BufferedReader;
@@ -64,6 +62,7 @@ public class GameController implements GameControllerInterface {
                            switch(choice){
                                case "1": {
                                    this.game.movePlayer(player, Dice.rollDice());
+                                   System.out.println(player);
                                    break;
                                }
                                case "2": {
@@ -96,6 +95,7 @@ public class GameController implements GameControllerInterface {
         if(this.game.checkEndGame()){
             this.game.switchGameStatus(false);
             System.out.println("Tous le monde a fini la partie");
+            System.out.println();
         }
     }
 
@@ -116,15 +116,8 @@ public class GameController implements GameControllerInterface {
     public void resume() throws GameNotFoundException {
         if(this.game == null) throw new GameNotFoundException("Veuillez creer une partie");
         System.out.println("Votre partie va reprendre !");
+        System.out.println();
         this.game.switchGameStatus(true);
-    }
-
-    /**
-     * Only for test
-     * @return
-     */
-    public Game getGame(){
-        return this.game;
     }
 
 }

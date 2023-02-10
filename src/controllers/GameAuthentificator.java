@@ -32,18 +32,21 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            System.out.print("lastname : ");
+            System.out.print("nom : ");
             lastName = br.readLine();
+            CheckerRegex.checkStringIsEmpty(lastName);
 
-            System.out.print("firstname : ");
+            System.out.print("prenom : ");
             firstName = br.readLine();
+            CheckerRegex.checkStringIsEmpty(firstName);
 
             System.out.print("email : ");
             email = br.readLine();
             CheckerRegex.isEmail(email);
 
-            System.out.print("password : ");
+            System.out.print("mot de passe : ");
             password = br.readLine();
+            CheckerRegex.checkStringIsEmpty(password);
 
             uniqId = String.format("p_%02d", id);
             User user = new User(lastName, firstName, email, password, uniqId);
@@ -65,9 +68,9 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
         String pwd;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         try {
-            System.out.print("Please enter your username : ");
+            System.out.print("identifiant : ");
             id = br.readLine();
-            System.out.print("Please type your password : ");
+            System.out.print("mot de passe: ");
             pwd = br.readLine();
             return this.listUser.checkIfUserExist(pwd, id);
         } catch (Exception e) {

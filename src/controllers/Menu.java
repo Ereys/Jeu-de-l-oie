@@ -17,7 +17,6 @@ public class Menu {
     }
 
     public void authentificationMenu(){
-
         User newUser = null;
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
@@ -46,8 +45,11 @@ public class Menu {
                 if(choice.equals("3")) break;
             }catch (Exception exception){
                 System.out.println("*************************************");
+
                 System.out.println(exception.getMessage());
+
                 System.out.println("*************************************");
+                System.out.println();
             }
         }while(newUser == null);
     }
