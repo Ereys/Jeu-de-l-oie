@@ -1,6 +1,7 @@
 package controllers;
 
 import com.sun.jdi.ClassNotLoadedException;
+import exceptions.GameNotFoundException;
 import models.Game;
 import models.Player;
 
@@ -18,8 +19,7 @@ public class GameController implements GameControllerInterface {
     }
 
     @Override
-    public void create() {
-        int size=0;
+    public void create(int size) {
         //On demande la taille du plateau de jeu
         this.game = new Game(size);
     }
@@ -32,6 +32,8 @@ public class GameController implements GameControllerInterface {
                 if(player.hasFinished()){
                     continue;
                 }
+
+                System.out.println("Je suis ici !");
                 // Bufferedreader : 1 2 3
 
                 // Tu teste si c'est 1 2 ou 3
@@ -60,20 +62,22 @@ public class GameController implements GameControllerInterface {
     @Override
     public void render() {
         System.out.println("******************************************");
-        for(Player p: this.game.getPlayers()){
-            System.out.println(p.toString());
-        }
+        this.game.displayAllPlayersInformation();
         System.out.println("******************************************");
     }
 
     @Override
-    public void pause() {
-
+    public void pause() throws GameNotFoundException{
+        if(this.game == null) throw new GameNotFoundException("Veuillez creer une partie");
+        this.game.switchGameStatus(false);
     }
 
     @Override
-    public void resume() {
-
+    public void resume() throws GameNotFoundException {
+        if(this.game == null) throw new GameNotFoundException("Veuillez creer une partie");
+        System.out.println("Votre partie va reprendre !");
+        this.game.switchGameStatus(true);
+        this.run();
     }
 
     /**

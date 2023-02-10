@@ -1,12 +1,14 @@
 package controllers;
 
+import exceptions.GameNotFoundException;
+
 public interface GameControllerInterface {
 
 
     /**
      * Method to create initialize value
      */
-    public void create();
+    public void create(int size);
 
     /**
      * Method to run a game
@@ -26,10 +28,10 @@ public interface GameControllerInterface {
     /**
      * Method to pause a game
      */
-    public void pause ();
+    public void pause () throws GameNotFoundException;
 
     /**
      * Method to resume a game
      */
-    public void resume ();
+    public void resume () throws GameNotFoundException;
 }

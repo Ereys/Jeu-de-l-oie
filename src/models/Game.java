@@ -5,11 +5,10 @@ public class Game {
     private BoardGame board;
     private boolean inProgress;
     public Game(int size){
+
         this.board = new BoardGame(size);
-       System.out.println(board.getCaseById(2).getIdCase());
         this.listPlayer = new ArrayList<Player>();
         this.inProgress = true;
-
     }
 
     /**
@@ -27,6 +26,14 @@ public class Game {
      */
     public boolean gameInProgress(){
         return this.inProgress;
+    }
+
+    /**
+     * Use this method to switch the state of the game
+     * @param status true : inProgress, false : paused
+     */
+    public void switchGameStatus(boolean status){
+        this.inProgress = status;
     }
 
     /**
@@ -63,5 +70,11 @@ public class Game {
      */
     public ArrayList<Player> getPlayers(){
         return this.listPlayer;
+    }
+
+    public void displayAllPlayersInformation(){
+        for (Player p: this.listPlayer) {
+            System.out.println(p.toString() + "/ " + this.board.getSize());
+        }
     }
 }

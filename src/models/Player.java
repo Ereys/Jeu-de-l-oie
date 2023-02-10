@@ -6,7 +6,7 @@ public class Player {
     private int score;
     private int currentCase;
 
-    public Player(String lastName, String firstName, String email, String uniqId, String password) {
+    public Player(String uniqId) {
         this.uniqId = uniqId;
         this.score = 0;
     }
@@ -33,6 +33,6 @@ public class Player {
     }
     @Override
     public String toString() {
-        return this.uniqId + " / case : " + this.currentCase +  " / score : " + this.score;
+        return this.uniqId  +  " / score : " + this.score + " / case : " + this.currentCase;
     }
 }

@@ -9,6 +9,7 @@ public class BoardGame {
     public BoardGame(int size){
         this.size = size;
         this.listCase = new ArrayList<Case>();
+
         this.boardConstruction(size);
     }
 
