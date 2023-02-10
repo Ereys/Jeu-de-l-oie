@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 public class GameController implements GameControllerInterface {
 
     private Game game = null;
+    private GameMenu menu;
 
     /**
      *
@@ -27,6 +28,7 @@ public class GameController implements GameControllerInterface {
     public void create(int size) {
         //On demande la taille du plateau de jeu
         this.game = new Game(size);
+        this.menu = new GameMenu();
     }
 
     @Override
@@ -39,50 +41,49 @@ public class GameController implements GameControllerInterface {
     public void run() throws Exception{
         BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
         String choice = "";
+        boolean quit = false;
 
-        while(this.game.gameInProgress()){
-
-            for(Player player : game.getPlayers()) { // Chacun son tour
-                if (player.hasFinished()) {
-                    System.out.println("1. Continuer a regarder");
-                    System.out.println("2. Quitter la partie");
-                    System.out.print("Votre choix : ");
-
-                    choice = buffer.readLine();
-                    CheckerRegex.choiceNumber(choice);
-                    if(choice.equals(1))continue;
-                    if(choice.equals(2)){
-                        this.game.switchGameStatus(false);
-                        break;
+        while(this.game.gameInProgress() && !quit){
+            for(Player player : game.getPlayers()) {
+                if (player.hasFinished() && !player.isBot()) {
+                    choice = this.menu.hasFinishedMenu();
+                    switch(choice){
+                        case "1": {
+                            player.switchFinished(true);
+                            render();
+                            break;
+                        }
+                        case "2": {
+                            quit = true;
+                        }
                     }
-                }
-                try {
-                    System.out.println("1. Jette le dé");
-                    System.out.println("2. Montrer le score");
-                    System.out.println("3. Quitter la partie (pause)");
-
-                    System.out.print("Votre choix : ");
-                    choice = buffer.readLine();
-                    CheckerRegex.choiceNumber(choice);
-
-                    if (choice.equals("1")) {
-                        this.game.movePlayer(player, Dice.rollDice());
+                }else{
+                    try {
+                        if(!player.isBot()){
+                           choice = menu.inGameMenu();
+                           switch(choice){
+                               case "1": {
+                                   this.game.movePlayer(player, Dice.rollDice());
+                                   break;
+                               }
+                               case "2": {
+                                   render();
+                                   break;
+                               }
+                               case "3": {
+                                   this.pause();
+                                   break;
+                               }
+                           }
+                        }else if(player.isBot() && !player.hasFinished()) this.game.movePlayer(player, Dice.rollDice());
+                        } catch (Exception e) {
+                            System.out.println(e);
                     }
-                    if (choice.equals("2")) {
-                        render();
-                    }
-                    if (choice.equals("3")) {
-                        this.pause();
-                        break;
-                    }
-                } catch (Exception e) {
-                    System.out.println(e);
                 }
             }
             update();
         }
     }
-
 
     /**
      * Update data for the game
@@ -91,6 +92,10 @@ public class GameController implements GameControllerInterface {
     public void update() {
         for(Player p: this.game.getPlayers()){
             game.checkIfWin(p);
+        }
+        if(this.game.checkEndGame()){
+            this.game.switchGameStatus(false);
+            System.out.println("Tous le monde a fini la partie");
         }
     }
 

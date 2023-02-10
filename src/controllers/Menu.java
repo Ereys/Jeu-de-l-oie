@@ -24,7 +24,6 @@ public class Menu {
 
         do{
             try {
-                System.out.flush();
                 System.out.println("-------------------------------------------------------------");
                 System.out.println("------------------ Authentification -------------------------");
                 System.out.println("-------------------------------------------------------------");
@@ -61,7 +60,6 @@ public class Menu {
 
         do {
             try {
-                System.out.flush();
                 System.out.println("---------------------------------------------------------");
                 System.out.println("------------------ Jeu de l'oie -------------------------");
                 System.out.println("---------------------------------------------------------");
@@ -79,7 +77,12 @@ public class Menu {
                     System.out.print("Taille du plateau de jeu : ");
                     size =Integer.parseInt(buffer.readLine());
                     this.game.create(size);
-                    this.game.addPlayerToGame(new Player(user.getUniqId()));
+
+                    this.game.addPlayerToGame(new Player(user.getUniqId(), false));
+                    this.game.addPlayerToGame(new Player("bot01", true));
+                    this.game.addPlayerToGame(new Player("bot02", true));
+                    this.game.addPlayerToGame(new Player("bot03", true));
+
                     this.game.run();
                 }
                 if (choice.equals("2")){

@@ -6,8 +6,11 @@ public class Player {
     private int score;
     private int currentCase;
 
-    public Player(String uniqId) {
+    private boolean isBot = false;
+
+    public Player(String uniqId, boolean isBot) {
         this.uniqId = uniqId;
+        this.isBot = isBot;
         this.score = 0;
     }
     public void setScore(int score){
@@ -18,10 +21,9 @@ public class Player {
         return this.uniqId;
     }
 
-    public void switchFinished(){
-        this.finished = !finished;
+    public void switchFinished(boolean finished){
+        this.finished = finished;
     }
-
     public boolean hasFinished(){
         return this.finished;
     }
@@ -35,5 +37,9 @@ public class Player {
     @Override
     public String toString() {
         return this.uniqId  +  " / score : " + this.score + " / a gagné : " + this.finished +  " / case : " + this.currentCase;
+    }
+
+    public boolean isBot() {
+        return isBot;
     }
 }

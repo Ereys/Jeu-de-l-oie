@@ -60,8 +60,25 @@ public class Game {
      */
     public void checkIfWin(Player p){
         if(p.getCurrentCase() == board.getSize()){
-            p.switchFinished();
+            p.switchFinished(true);
+        }else {
+            p.switchFinished(false);
         }
+    }
+
+    /**
+     * Method to check if all players has win the game
+     * @return
+     */
+
+    public boolean checkEndGame(){
+        int compteur = 0;
+        for(Player p : listPlayer){
+            if(p.hasFinished()) compteur++;
+        }
+
+        if(compteur == listPlayer.size()) return true;
+        else return false;
     }
 
     /**
