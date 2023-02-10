@@ -1,24 +1,13 @@
 package models;
 
 public class Player {
-    private String lastName;
-    private String firstName;
-    private String email;
-
-    private String password;
     private String uniqId;
-
     private boolean finished = false;
     private int score;
     private int currentCase;
 
     public Player(String lastName, String firstName, String email, String uniqId, String password) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
         this.uniqId = uniqId;
-        this.password = password;
-
         this.score = 0;
     }
     public void incrScore(){

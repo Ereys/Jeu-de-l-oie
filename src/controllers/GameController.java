@@ -32,7 +32,7 @@ public class GameController implements GameControllerInterface {
                 if(player.hasFinished()){
                     continue;
                 }
-                
+
                 // on demande :
                 //  1. Lancé le dé ( utiliser la méthode static throwDice(), et utiliser la classe Game pour déplacer  ),
                 //  2. Afficher son score( utiliser la méthode render() ) , Q

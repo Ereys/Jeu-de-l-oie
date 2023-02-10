@@ -1,62 +1,92 @@
 package controllers;
 
 import models.Player;
+import models.User;
+import models.UserList;
 import utils.CheckerRegex;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.stream.Collectors;
 
-public class GameAuthentificator implements  GameAuthentificatorInterface{
+public class GameAuthentificator implements  GameAuthentificatorInterface {
+
+    private UserList listUser;
+    private int id = 1;
+
+    public GameAuthentificator() {
+        this.listUser = new UserList();
+    }
 
     @Override
-    public void register() {
+    public User register() {
         String lastName;
         String firstName;
-        String id;
+        String uniqId;
         String email;
         String password;
-        int uniqId = 1;
+
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         try {
-            System.out.println("lastname");
+            System.out.print("lastname : ");
             lastName = br.readLine();
 
-            System.out.println("firstname");
+            System.out.print("firstname : ");
             firstName = br.readLine();
 
-            System.out.println("email");
-            email =  br.readLine();
+            System.out.print("email : ");
+            email = br.readLine();
             CheckerRegex.isEmail(email);
 
-            System.out.println("password");
+            System.out.print("password : ");
             password = br.readLine();
 
-            id = String.format("p%02d", uniqId);
-            Player player = new Player(lastName, firstName, email, id, password);
+            uniqId = String.format("p_%02d", id);
+            User user = new User(lastName, firstName, email, password, uniqId);
 
-        }catch (Exception e){
+            this.listUser.addUserToUserList(user);
+            this.id += 1;
+            System.out.println("Vous êtes enregistré !, votre id est :" + user.getUniqId());
+            user.login();
+            return user;
+        } catch (Exception e) {
             System.out.println(e);
+            System.out.println("Une erreur est survenue lors de l'enregistrement, veuillez  ressayer !");
+            return null;
         }
-
-
-        this.listPlayer.add(player);
-        this.currentPlayer = player;
-        uniqId++;
-
-        // TO DO: Add play method
-
-
     }
 
     @Override
-    public void login() {
+    public User login() {
 
+        String id;
+        String pwd;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            System.out.print("Please enter your username : ");
+            id = br.readLine();
+            System.out.print("Please type your password : ");
+            pwd = br.readLine();
+
+            for (User user : this.listUser.getUserList()) {
+                if (user.checkIfRightPassword(pwd) && id.equals(user.getUniqId())) {
+                    System.out.println("Bienvenue ! " + user.getUniqId());
+                    user.login();
+                    return user;
+                }
+            }
+            System.out.println("Votre compte n'existe pas, veuillez vous enregistrer !");
+            return null;
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Une erreur est survenue lors de la connexion, veuillez ressayer");
+            return null;
+        }
     }
-
     @Override
-    public void logout() {
-
+    public void logout(User user) {
+        user.logout();
     }
 }

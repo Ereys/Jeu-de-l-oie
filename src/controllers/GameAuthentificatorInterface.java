@@ -1,13 +1,15 @@
 package controllers;
 
+import models.User;
+
 public interface GameAuthentificatorInterface {
 
 
-    public void register();
+    public User register();
 
-    public void login();
+    public User login();
 
-    public void logout();
+    public void logout(User user);
 
 
 
