@@ -4,6 +4,9 @@ import models.Game;
 import models.Player;
 import models.User;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 /**
  * Main class to test the game
  */
@@ -11,10 +14,13 @@ public class Main {
     public static void main(String[] args) {
 
         User newUser = null;
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
 
-      /*  do{
+        do{
+            
 
-        }while(newUser == null);*/
+
+        }while(newUser == null);
 
         GameAuthentificator gameAuth = new GameAuthentificator();
         newUser = gameAuth.register();

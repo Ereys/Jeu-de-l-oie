@@ -69,16 +69,7 @@ public class GameAuthentificator implements  GameAuthentificatorInterface {
             id = br.readLine();
             System.out.print("Please type your password : ");
             pwd = br.readLine();
-
-            for (User user : this.listUser.getUserList()) {
-                if (user.checkIfRightPassword(pwd) && id.equals(user.getUniqId())) {
-                    System.out.println("Bienvenue ! " + user.getUniqId());
-                    user.login();
-                    return user;
-                }
-            }
-            System.out.println("Votre compte n'existe pas, veuillez vous enregistrer !");
-            return null;
+            return this.listUser.checkIfUserExist(pwd, id);
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Une erreur est survenue lors de la connexion, veuillez ressayer");

@@ -18,8 +18,8 @@ public class User {
 
         this.isLogin = false;
     }
-    public boolean checkIfRightPassword(String pwd){
-        if(pwd.equals(password))return true;
+    public boolean checkIfRightUser(String pwd, String uniqId){
+        if(pwd.equals(password) && uniqId.equals(uniqId))return true;
         return false;
     }
     public String getUniqId() {
